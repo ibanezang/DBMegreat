@@ -1,7 +1,7 @@
 # DB Megreat
-DB Megreat designed to be a very simplistic database migration tools with a simple json configuration file.
+DB Megreat designed to be a very simplistic database migration tools with a simple json configuration file. DB megreat is created as a CLI command so you can integrate DB Megreat to your build pipeline to make sure your that database always up-to-date.
 
-## configuration file
+## How to use?
 You just need to create a configuration file with any name we like. For example create a file `db-megreat.json` with this content:
 
 ```
@@ -23,7 +23,10 @@ And then we pass it to the command line argument of DB Megreat:
 $ megreat db-megreat.json
 ```
 
-DB Megreat will scan all directories in the `sql_files_directories` for `*.sql` files and execute them once. 
+DB Megreat will scan all directories in the `sql_files_directories` for `*.sql` files and execute them once. If you try execute again, it will only excute the newly created file. 
+
+### Note:
+DB Megreat executes the sql scripts based on the file naming order.
 
 ## Technical Detail
-DB Megreat will create a new table called `db_megreat_tracks` in your database. It keeps track all executed `.sql` scripts and when. The key used to identify a unique scripts is the `directory+filename`. 
+DB Megreat will create a new table called `db_megreat_tracks` in your database. It keeps track all executed `.sql` scripts and execution time. The key used to identify a unique scripts is the `directory+filename`. The log file will tell the about the success or failure execution. If DB Megreat fails to execute a file, it will stop the entire operation and only make the records of the success executions in the `db_megreat_tracks` table. 
