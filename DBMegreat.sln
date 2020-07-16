@@ -1,0 +1,38 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{93193CD6-8CCF-4D58-9FFD-45FF7029823D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B53A1936-1F70-488A-A00B-EF88F1A9F50D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMegreat.ConsoleApp", "src\DBMegreat.ConsoleApp\DBMegreat.ConsoleApp.csproj", "{6EA4B215-F719-4635-91F8-1595BFAE55D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMigreat.MigrationTools", "src\DBMigreat.MigrationTools\DBMigreat.MigrationTools.csproj", "{9DCFCC4C-211D-41E1-81D2-1BC2B187DC14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMegreat.MigrationTools.Test", "test\DBMegreat.MigrationTools.Test\DBMegreat.MigrationTools.Test.csproj", "{C2E9F419-96BB-4661-9271-E113A3B331AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6EA4B215-F719-4635-91F8-1595BFAE55D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EA4B215-F719-4635-91F8-1595BFAE55D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EA4B215-F719-4635-91F8-1595BFAE55D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EA4B215-F719-4635-91F8-1595BFAE55D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DCFCC4C-211D-41E1-81D2-1BC2B187DC14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DCFCC4C-211D-41E1-81D2-1BC2B187DC14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DCFCC4C-211D-41E1-81D2-1BC2B187DC14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DCFCC4C-211D-41E1-81D2-1BC2B187DC14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2E9F419-96BB-4661-9271-E113A3B331AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2E9F419-96BB-4661-9271-E113A3B331AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2E9F419-96BB-4661-9271-E113A3B331AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2E9F419-96BB-4661-9271-E113A3B331AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6EA4B215-F719-4635-91F8-1595BFAE55D2} = {93193CD6-8CCF-4D58-9FFD-45FF7029823D}
+		{9DCFCC4C-211D-41E1-81D2-1BC2B187DC14} = {93193CD6-8CCF-4D58-9FFD-45FF7029823D}
+		{C2E9F419-96BB-4661-9271-E113A3B331AA} = {B53A1936-1F70-488A-A00B-EF88F1A9F50D}
+	EndGlobalSection
+EndGlobal
