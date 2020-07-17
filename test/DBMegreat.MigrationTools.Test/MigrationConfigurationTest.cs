@@ -71,5 +71,40 @@ namespace DBMegreat.MigrationTools.Test
             var exception = Should.Throw<InvalidConfigurationException>(() => MigrationConfiguration.ParseConfiguration(json));
             exception.Message.ShouldBe("sql_files_directories configuration was not found.");
         }
+
+        [Fact]
+        public void ParseConfiguration_WithNoDBConnection_ShouldThrowInvalidConfigurationException()
+        {
+            var json = @"
+                {
+                    ""sql_files_directories"": [
+                        ""/your/directory/contains/sql"",
+                        ""../another/directory/contains/sql""
+                    ],
+                    ""log_output"": ""../directory/output""
+                }
+            ";
+            var exception = Should.Throw<InvalidConfigurationException>(() => MigrationConfiguration.ParseConfiguration(json));
+            exception.Message.ShouldBe("db_connection configuration was not found.");
+        }
+
+        [Fact]
+        public void ParseConfiguration_WithConnectionString_ShouldThrowInvalidConfigurationException()
+        {
+            var json = @"
+                {
+                    ""sql_files_directories"": [
+                        ""/your/directory/contains/sql"",
+                        ""../another/directory/contains/sql""
+                    ],
+                    ""db_connection"": {
+                        ""type"": ""mysql""
+                    },
+                    ""log_output"": ""../directory/output""
+                }
+            ";
+            var exception = Should.Throw<InvalidConfigurationException>(() => MigrationConfiguration.ParseConfiguration(json));
+            exception.Message.ShouldBe("db_connection.connection_string configuration was not found.");
+        }
     }
 }

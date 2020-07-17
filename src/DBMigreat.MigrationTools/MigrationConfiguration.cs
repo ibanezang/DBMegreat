@@ -8,7 +8,7 @@ namespace DBMigreat.MigrationTools
     public class MigrationConfiguration
     {
         [JsonPropertyName("sql_files_directories")]
-        public IList<string> SqlFilesDirectories { get; set; }
+        public IReadOnlyList<string> SqlFilesDirectories { get; set; }
 
         [JsonPropertyName("db_connection")]
         public ConnectionConfiguration DbConnection { get; set; }
@@ -33,12 +33,17 @@ namespace DBMigreat.MigrationTools
                 throw new InvalidConfigurationException("db_connection configuration was not found.");
             }
 
-            if (config.DbConnection.ConnectionString == null)
+            if (string.IsNullOrWhiteSpace(config.DbConnection.ConnectionString))
             {
                 throw new InvalidConfigurationException("db_connection.connection_string configuration was not found.");
             }
 
             if (config.SqlFilesDirectories == null)
+            {
+                throw new InvalidConfigurationException("sql_files_directories configuration was not found.");
+            }
+
+            if (config.SqlFilesDirectories.Count == 0)
             {
                 throw new InvalidConfigurationException("sql_files_directories configuration was not found.");
             }

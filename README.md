@@ -26,13 +26,15 @@ $ megreat db-megreat.json
 DB Megreat will use `db_connection` to connect to the database and scan all directories in the `sql_files_directories` for `*.sql` files and execute them once. If you try execute again, it will only excute the newly created file. 
 
 ### Note:
-DB Megreat executes the sql scripts based on the file naming order.
+* Mandatory configuration fields are: `sql_files_directories`, `db_connection`, `db_connection.type`, `db_connection.connection_string`. 
+* If `log_output` provided, DB Megreat will write logs to a file. Otherwise, it will only print the output in the CLI.
+* DB Megreat executes the sql scripts based on the file naming order.
 
 ## Supported Database Connection Type
 | Type | Description |
 |------|-------------|
-|my_sql| MySQL database|
-|sql_server| MS SQL Server database|
+|mysql| MySQL database|
+|sqlserver| MS SQL Server database|
 
 ## Technical Detail
 DB Megreat will create a new table called `db_megreat_tracks` in your database. It keeps track all executed `.sql` scripts and execution time. The key used to identify a unique scripts is the `directory+filename`. The log file will tell the about the success or failure execution. If DB Megreat fails to execute a file, it will stop the entire operation and only make the records of the success executions in the `db_megreat_tracks` table. 
