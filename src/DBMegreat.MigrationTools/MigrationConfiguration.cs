@@ -35,7 +35,7 @@ namespace DBMegreat.MigrationTools
 
             if (string.IsNullOrWhiteSpace(config.DbConnection.ConnectionString))
             {
-                throw new InvalidConfigurationException("db_connection.connection_string configuration has invalid value.");
+                throw new InvalidConfigurationException("db_connection.connection_string configuration was not found or has invalid value.");
             }
 
             if (config.SqlFilesDirectories == null)
