@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System;
 
-namespace DBMigreat.MigrationTools
+namespace DBMegreat.MigrationTools
 {
     public class MigrationConfiguration
     {
@@ -35,7 +35,7 @@ namespace DBMigreat.MigrationTools
 
             if (string.IsNullOrWhiteSpace(config.DbConnection.ConnectionString))
             {
-                throw new InvalidConfigurationException("db_connection.connection_string configuration was not found.");
+                throw new InvalidConfigurationException("db_connection.connection_string configuration has invalid value.");
             }
 
             if (config.SqlFilesDirectories == null)
@@ -45,7 +45,15 @@ namespace DBMigreat.MigrationTools
 
             if (config.SqlFilesDirectories.Count == 0)
             {
-                throw new InvalidConfigurationException("sql_files_directories configuration was not found.");
+                throw new InvalidConfigurationException("sql_files_directories configuration was empty.");
+            }
+
+            foreach (var directory in config.SqlFilesDirectories)
+            {
+                if (string.IsNullOrWhiteSpace(directory))
+                {
+                    throw new InvalidConfigurationException("sql_files_directories has invalid value.");
+                }
             }
 
             return config;

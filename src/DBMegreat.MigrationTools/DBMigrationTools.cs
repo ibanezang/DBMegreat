@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace DBMigreat.MigrationTools
+namespace DBMegreat.MigrationTools
 {
     public class DBMigrationTools
     {
@@ -16,11 +16,12 @@ namespace DBMigreat.MigrationTools
         {
             var content = await _ioHelper.LoadFileContentAsync(configFilePath);
             var configuration = MigrationConfiguration.ParseConfiguration(content);
-        }
 
-        public void LoadConfigFile(string configFilePath)
-        {
+            foreach (var directory in configuration.SqlFilesDirectories)
+            {
+                var files = _ioHelper.GetFilesFromDirectory(directory);
 
+            }
         }
     }
 }

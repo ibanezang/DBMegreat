@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using DBMigreat.MigrationTools;
+using DBMegreat.MigrationTools;
 using Shouldly;
 using Xunit;
 
