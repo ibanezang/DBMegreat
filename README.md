@@ -28,7 +28,7 @@ DB Megreat will use `db_connection` to connect to the database and scan all dire
 ### Note:
 * Mandatory configuration fields are: `sql_files_directories`, `db_connection`, `db_connection.type`, `db_connection.connection_string`. 
 * If `log_output` provided, DB Megreat will write logs to a file. Otherwise, it will only print the output in the CLI.
-* DB Megreat executes the sql scripts based on the file naming order.
+* DB Megreat executes the sql scripts based on the file naming order. The best practice for a consistent ordering, you can give a number for your file for example `00001_your_file_name.sql`, `00002_another_file_name.sql`, etc.
 
 ## Supported Database Connection Type
 | Type | Description |
