@@ -14,10 +14,10 @@ namespace DBMegreat.MigrationTools
             _trackerRepositoryFactory = trackerRepositoryFactory;
         }
 
-        public async Task Execute(string configFilePath)
+        public async Task ExecuteAsync(string configFilePath)
         {
-            var content = await _ioHelper.LoadFileContentAsync(configFilePath);
-            var configuration = MigrationConfiguration.ParseConfiguration(content);
+            var configContent = _ioHelper.LoadFileContent(configFilePath);
+            var configuration = MigrationConfiguration.ParseConfiguration(configContent);
             var trackerRepository = _trackerRepositoryFactory.GetTrackerRepository(configuration.DbConnection);
             var executedScript = await trackerRepository.GetExecutedScriptsAsync();
 
@@ -30,7 +30,7 @@ namespace DBMegreat.MigrationTools
                     var key = $"{directoryPath}{file}";
                     if (!executedScript.ContainsKey(key))
                     {
-                        var scriptContent = await _ioHelper.LoadFileContentAsync(key);
+                        var scriptContent = _ioHelper.LoadFileContent(key);
                         await trackerRepository.ExecuteNonQueryAsync(scriptContent);
                         await trackerRepository.InsertTrackingAsync(key);
                     }

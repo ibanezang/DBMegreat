@@ -1,13 +1,16 @@
-﻿using System;
+﻿using System.Threading.Tasks;
+using DBMegreat.MigrationTools;
+using DBMegreat.MigrationTools.Repositories;
 
 namespace DBMegreat.ConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-
-            Console.WriteLine("Hello World!");
+            var ioHelper = new IOHelper();
+            var trackerRepositoryFactory = new MegreatTracksRepositoryFactory();
+            await new DBMigrationTools(ioHelper, trackerRepositoryFactory).ExecuteAsync(args[1]);
         }
     }
 }

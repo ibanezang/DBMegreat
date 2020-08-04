@@ -1,13 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace DBMegreat.MigrationTools
 {
     public interface IIOHelper
     {
         IEnumerable<string> GetFilesFromDirectory(string directoryPath);
-        Task<string> LoadFileContentAsync(string filePath);
+        string LoadFileContent(string filePath);
+    }
+
+    public class IOHelper : IIOHelper
+    {
+        public IEnumerable<string> GetFilesFromDirectory(string directoryPath)
+        {
+            return Directory.GetFiles(directoryPath, "*.sql", SearchOption.TopDirectoryOnly);
+        }
+
+        public string LoadFileContent(string filePath)
+        {
+            return File.ReadAllText(filePath);
+        }
     }
 
     public class IOException : Exception
