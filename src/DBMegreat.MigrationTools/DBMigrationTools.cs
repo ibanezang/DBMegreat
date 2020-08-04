@@ -6,20 +6,20 @@ namespace DBMegreat.MigrationTools
     public class DBMigrationTools
     {
         private readonly IIOHelper _ioHelper;
-        private readonly ITrackerRepositoryFactory _megreatTracksRepositoryFactory;
+        private readonly ITrackerRepositoryFactory _trackerRepositoryFactory;
 
-        public DBMigrationTools(IIOHelper ioHelper, ITrackerRepositoryFactory megreatTracksRepositoryFactory)
+        public DBMigrationTools(IIOHelper ioHelper, ITrackerRepositoryFactory trackerRepositoryFactory)
         {
             _ioHelper = ioHelper;
-            _megreatTracksRepositoryFactory = megreatTracksRepositoryFactory;
+            _trackerRepositoryFactory = trackerRepositoryFactory;
         }
 
         public async Task Execute(string configFilePath)
         {
             var content = await _ioHelper.LoadFileContentAsync(configFilePath);
             var configuration = MigrationConfiguration.ParseConfiguration(content);
-            var trackRepository = _megreatTracksRepositoryFactory.GetTrackerRepository(configuration.DbConnection);
-            var executedScript = await trackRepository.GetExecutedScriptsAsync();
+            var trackerRepository = _trackerRepositoryFactory.GetTrackerRepository(configuration.DbConnection);
+            var executedScript = await trackerRepository.GetExecutedScriptsAsync();
 
             foreach (var directory in configuration.SqlFilesDirectories)
             {
@@ -31,8 +31,8 @@ namespace DBMegreat.MigrationTools
                     if (!executedScript.ContainsKey(key))
                     {
                         var scriptContent = await _ioHelper.LoadFileContentAsync(key);
-                        await trackRepository.ExecuteNonQueryAsync(scriptContent);
-                        await trackRepository.InsertTrackingAsync(key);
+                        await trackerRepository.ExecuteNonQueryAsync(scriptContent);
+                        await trackerRepository.InsertTrackingAsync(key);
                     }
                 }
             }
