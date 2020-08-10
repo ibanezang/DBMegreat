@@ -11,7 +11,15 @@ namespace DBMegreat.ConsoleApp
         {
             var ioHelper = new IOHelper();
             var trackerRepositoryFactory = new MegreatTracksRepositoryFactory();
-            await new DBMigrationTools(ioHelper, trackerRepositoryFactory).ExecuteAsync(args[0]);
+            try
+            {
+                await new DBMigrationTools(ioHelper, trackerRepositoryFactory).ExecuteAsync(args[0]);
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine(ex.Message);
+            }
+
         }
     }
 }
