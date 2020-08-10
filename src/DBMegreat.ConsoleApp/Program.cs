@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DBMegreat.MigrationTools;
 using DBMegreat.MigrationTools.Repositories;
 
@@ -10,7 +11,7 @@ namespace DBMegreat.ConsoleApp
         {
             var ioHelper = new IOHelper();
             var trackerRepositoryFactory = new MegreatTracksRepositoryFactory();
-            await new DBMigrationTools(ioHelper, trackerRepositoryFactory).ExecuteAsync(args[1]);
+            await new DBMigrationTools(ioHelper, trackerRepositoryFactory).ExecuteAsync(args[0]);
         }
     }
 }

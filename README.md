@@ -29,6 +29,7 @@ DB Megreat will use `db_connection` to connect to the database and scan all dire
 * Mandatory configuration fields are: `sql_files_directories`, `db_connection`, `db_connection.type`, `db_connection.connection_string`. 
 * If `log_output` provided, DB Megreat will write logs to a file. Otherwise, it will only print the output in the CLI.
 * DB Megreat executes the sql scripts based on the file naming order. The best practice for a consistent ordering, you can give a number for your file for example `00001_your_file_name.sql`, `00002_another_file_name.sql`, etc.
+* Make sure the database user being used has a privileges to do manipulate your database. Otherwise, you might encounter some errors when executing your scripts.
 
 ## Supported Database Connection Type
 | Type | Description |
@@ -37,4 +38,4 @@ DB Megreat will use `db_connection` to connect to the database and scan all dire
 |sqlserver| MS SQL Server database|
 
 ## Technical Detail
-DB Megreat will create a new table called `db_megreat_tracks` in your database. It keeps track all executed `.sql` scripts and execution time. The key used to identify a unique scripts is the `directory+filename`. The log file will tell the about the success or failure execution. If DB Megreat fails to execute a file, it will stop the entire operation and only make the records of the success executions in the `db_megreat_tracks` table. 
+DB Megreat will create a new table called `db_megreat_tracks` in your database. It keeps track all executed `.sql` scripts and execution time. The key used to identify a unique scripts is the `<filename>.sql`. The log file will tell the about the success or failure execution. If DB Megreat fails to execute a file, it will stop the entire operation and only make the records of the success executions in the `db_megreat_tracks` table. 

@@ -19,6 +19,12 @@ namespace DBMegreat.MigrationTools
             var configContent = _ioHelper.LoadFileContent(configFilePath);
             var configuration = MigrationConfiguration.ParseConfiguration(configContent);
             var trackerRepository = _trackerRepositoryFactory.GetTrackerRepository(configuration.DbConnection);
+
+            if (!await trackerRepository.CheckTrackTableExistAsync())
+            {
+                await trackerRepository.CreateTrackTableAsync();
+            }
+
             var executedScript = await trackerRepository.GetExecutedScriptsAsync();
 
             foreach (var directory in configuration.SqlFilesDirectories)

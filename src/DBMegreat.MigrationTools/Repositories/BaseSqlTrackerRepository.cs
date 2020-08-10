@@ -33,9 +33,8 @@ namespace DBMegreat.MigrationTools.Repositories
             get
             {
                 return @"CREATE TABLE db_megreat_track (
-                            tracking_key varchar(2048) NOT NULL,
-                            executed_time date DEFAULT NULL
-                            PRIMARY KEY (tracking_key)
+	                        tracking_key varchar(512) NOT NULL UNIQUE,
+	                        executed_time date DEFAULT NULL
                         )";
             }
         }
@@ -86,7 +85,7 @@ namespace DBMegreat.MigrationTools.Repositories
         {
             try
             {
-                return (await QueryAsync<dynamic>(CommandCreateTracksTable))
+                return (await QueryAsync<dynamic>(CommandSelectTrackingRecords))
                     .Select(r => new ExecutedScript(r.key, r.executed_time))
                     .ToDictionary(r => r.Key);
 
@@ -115,7 +114,7 @@ namespace DBMegreat.MigrationTools.Repositories
             using (var con = CreateConnection())
             {
                 con.Open();
-                result = await con.QueryFirstAsync<T>(query, parameters);
+                result = await con.QueryFirstOrDefaultAsync<T>(query, parameters);
             }
             return result;
         }
