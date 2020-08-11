@@ -14,12 +14,26 @@ namespace DBMegreat.MigrationTools
     {
         public IEnumerable<string> GetFilesFromDirectory(string directoryPath)
         {
-            return Directory.GetFiles(directoryPath, "*.sql", SearchOption.TopDirectoryOnly);
+            try
+            {
+                return Directory.GetFiles(directoryPath, "*.sql", SearchOption.TopDirectoryOnly);
+            }
+            catch (Exception ex)
+            {
+                throw new IOException($"Failure on getting file list in {directoryPath}", ex);
+            }
         }
 
         public string LoadFileContent(string filePath)
         {
-            return File.ReadAllText(filePath);
+            try
+            {
+                return File.ReadAllText(filePath);
+            }
+            catch (Exception ex)
+            {
+                throw new IOException($"Failure on reading file {filePath}", ex);
+            }
         }
     }
 
