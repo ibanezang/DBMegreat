@@ -81,12 +81,12 @@ namespace DBMegreat.MigrationTools.Repositories
             }
         }
 
-        public async Task<IDictionary<string, ExecutedScript>> GetExecutedScriptsAsync()
+        public async Task<IDictionary<string, SchemaHistoryRecord>> GetSchemaHistoryRecordsAsync()
         {
             try
             {
                 return (await QueryAsync<dynamic>(CommandSelectTrackingRecords))
-                    .Select(r => new ExecutedScript(r.key, r.executed_time))
+                    .Select(r => new SchemaHistoryRecord(r.key, r.executed_time))
                     .ToDictionary(r => r.Key);
 
             }
