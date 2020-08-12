@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DBMegreat.MigrationTools.Repositories;
 
@@ -19,6 +20,7 @@ namespace DBMegreat.MigrationTools
 
         public async Task ExecuteAsync(string configFilePath)
         {
+            var totalNewExecutedScript = 0;
             try
             {
                 _logger.Info($"Loading configuration file {configFilePath}.");
@@ -37,7 +39,7 @@ namespace DBMegreat.MigrationTools
                 }
                 else
                 {
-                    _logger.Info("db_megreat_track table is not available in the database.");
+                    _logger.Info("db_megreat_track table is available in the database.");
                 }
 
                 _logger.Info("Loading schema history records from db_megreat_track table.");
@@ -49,25 +51,35 @@ namespace DBMegreat.MigrationTools
                     _logger.Info($"Searching {directory} directory for *.sql files.");
                     var directoryPath = directory.EndsWith("/") ? directory : $"{directory}/";
                     var files = _ioHelper.GetFilesFromDirectory(directoryPath);
-                    _logger.Info($"{files.Count()} *.sql file(s) found in {directory}.");
+                    _logger.Info($"{files.Count()} *.sql file(s) have been found in {directory}.");
 
-                    foreach (var file in files)
+                    foreach (var file in files.OrderBy(x => x))
                     {
-                        var key = $"{directoryPath}{file}";
-                        if (!schemaHistoryRecords.ContainsKey(key))
+                        if (!schemaHistoryRecords.ContainsKey(file))
                         {
-                            var scriptContent = _ioHelper.LoadFileContent(key);
+                            _logger.Info($"Executing {file}.");
+                            var scriptContent = _ioHelper.LoadFileContent(file);
                             await trackerRepository.ExecuteNonQueryAsync(scriptContent);
-                            await trackerRepository.InsertTrackingAsync(key);
+                            await trackerRepository.InsertTrackingAsync(file);
+                            _logger.Info($"{file} has been executed successfully.");
+
+                            totalNewExecutedScript++;
                         }
                     }
                 }
 
-                _logger.Info($"Updating database schema from {configFilePath} is completed successfully.");
+                if (totalNewExecutedScript > 0)
+                {
+                    _logger.Info($"{totalNewExecutedScript} script(s) have been executed. Your database shcema is no up to date.");
+                }
+                else
+                {
+                    _logger.Info("No new script has been found. Your database schema is up to date.");
+                }
             }
-            catch (IOException ex)
+            catch (Exception ex)
             {
-
+                _logger.Error("There is a problem during updating the database schema.", ex);
             }
         }
     }

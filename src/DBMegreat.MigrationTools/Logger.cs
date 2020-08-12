@@ -15,7 +15,7 @@ namespace DBMegreat.MigrationTools
         private string _currentDateTime => DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff");
         protected string FormatInfo(string message) => $"[INFO][{_currentDateTime}] {message}";
         protected string FormatWarning(string message) => $"[WARNING][{_currentDateTime}] {message}";
-        protected string FormatError(string message, Exception ex) => $"[ERROR][{_currentDateTime}] {message} - {ex.StackTrace}";
+        protected string FormatError(string message, Exception ex) => $"[ERROR][{_currentDateTime}] {message} - {ex.Message} - {ex.StackTrace}";
     }
 
     public class EmptyLogger : BaseLogger, ILogger

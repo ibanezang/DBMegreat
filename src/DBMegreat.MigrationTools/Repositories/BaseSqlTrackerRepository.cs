@@ -34,7 +34,7 @@ namespace DBMegreat.MigrationTools.Repositories
             {
                 return @"CREATE TABLE db_megreat_track (
 	                        tracking_key varchar(512) NOT NULL UNIQUE,
-	                        executed_time date DEFAULT NULL
+	                        executed_time datetime DEFAULT NULL
                         )";
             }
         }
@@ -86,13 +86,13 @@ namespace DBMegreat.MigrationTools.Repositories
             try
             {
                 return (await QueryAsync<dynamic>(CommandSelectTrackingRecords))
-                    .Select(r => new SchemaHistoryRecord(r.key, r.executed_time))
+                    .Select(r => new SchemaHistoryRecord(r.tracking_key, r.executed_time))
                     .ToDictionary(r => r.Key);
 
             }
             catch (Exception ex)
             {
-                throw new DBException($"Failure on getting 'db_megreat_track' records.", ex);
+                throw new DBException($"Failure on getting 'db_megreat_track' records: {ex.Message}.", ex);
             }
         }
 
