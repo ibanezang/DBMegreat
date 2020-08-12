@@ -1,0 +1,51 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{93193CD6-8CCF-4D58-9FFD-45FF7029823D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B53A1936-1F70-488A-A00B-EF88F1A9F50D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMegreat.ConsoleApp", "src\DBMegreat.ConsoleApp\DBMegreat.ConsoleApp.csproj", "{6EA4B215-F719-4635-91F8-1595BFAE55D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMegreat.MigrationTools", "src\DBMegreat.MigrationTools\DBMegreat.MigrationTools.csproj", "{D4DEA9EB-E86B-46AC-B0A9-ED9E0D05928D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMegreat.MigrationTools.Test", "test\DBMegreat.MigrationTools.Test\DBMegreat.MigrationTools.Test.csproj", "{9586E763-8771-426C-886A-F83F10E90437}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMegreat.MigrationTools.Integration.Test", "test\DBMegreat.MigrationTools.Integration.Test\DBMegreat.MigrationTools.Integration.Test.csproj", "{658D6E42-3CDB-4137-B783-8C248F277413}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D8116134-854A-4969-94F7-4C0B84221224}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6EA4B215-F719-4635-91F8-1595BFAE55D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EA4B215-F719-4635-91F8-1595BFAE55D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EA4B215-F719-4635-91F8-1595BFAE55D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EA4B215-F719-4635-91F8-1595BFAE55D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4DEA9EB-E86B-46AC-B0A9-ED9E0D05928D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4DEA9EB-E86B-46AC-B0A9-ED9E0D05928D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4DEA9EB-E86B-46AC-B0A9-ED9E0D05928D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4DEA9EB-E86B-46AC-B0A9-ED9E0D05928D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9586E763-8771-426C-886A-F83F10E90437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9586E763-8771-426C-886A-F83F10E90437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9586E763-8771-426C-886A-F83F10E90437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9586E763-8771-426C-886A-F83F10E90437}.Release|Any CPU.Build.0 = Release|Any CPU
+		{658D6E42-3CDB-4137-B783-8C248F277413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{658D6E42-3CDB-4137-B783-8C248F277413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{658D6E42-3CDB-4137-B783-8C248F277413}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{658D6E42-3CDB-4137-B783-8C248F277413}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8116134-854A-4969-94F7-4C0B84221224}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8116134-854A-4969-94F7-4C0B84221224}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8116134-854A-4969-94F7-4C0B84221224}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8116134-854A-4969-94F7-4C0B84221224}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6EA4B215-F719-4635-91F8-1595BFAE55D2} = {93193CD6-8CCF-4D58-9FFD-45FF7029823D}
+		{D4DEA9EB-E86B-46AC-B0A9-ED9E0D05928D} = {93193CD6-8CCF-4D58-9FFD-45FF7029823D}
+		{9586E763-8771-426C-886A-F83F10E90437} = {B53A1936-1F70-488A-A00B-EF88F1A9F50D}
+		{658D6E42-3CDB-4137-B783-8C248F277413} = {B53A1936-1F70-488A-A00B-EF88F1A9F50D}
+	EndGlobalSection
+EndGlobal
