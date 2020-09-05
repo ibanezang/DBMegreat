@@ -36,7 +36,7 @@ namespace DBMegreat.MigrationTools.Test
         public DBMigrationToolsTest()
         {
             _ioHelper = new Mock<IIOHelper>();
-            _ioHelper.Setup(x => x.LoadFileContent(configFilePath)).Returns("invalid content");
+            _ioHelper.Setup(x => x.LoadFileContent(configFilePath)).Returns(validConfigContent);
 
             _trackerRepositoryFactory = new Mock<ITrackerRepositoryFactory>();
             _logger = new Mock<ILogger>();
@@ -62,6 +62,16 @@ namespace DBMegreat.MigrationTools.Test
             _logger.Verify(x =>
                 x.Error(It.Is<string>(s => s == errorLogMessage),
                         It.Is<Exception>(ex => ex.GetType() == typeof(InvalidConfigurationException))));
+        }
+
+        [Fact]
+        public async Task ExecuteAsync_TrackerRepositoryThrowAnException_ShouldLogTrackerRepositoryException()
+        {
+            _trackerRepositoryFactory.Setup(x => x.GetTrackerRepository(It.IsAny<ConnectionConfiguration>())).Throws(new TrackerRepositoryException("error"));
+            await _migrationTools.ExecuteAsync(configFilePath);
+            _logger.Verify(x =>
+                x.Error(It.Is<string>(s => s == errorLogMessage),
+                        It.Is<Exception>(ex => ex.GetType() == typeof(TrackerRepositoryException))));
         }
     }
 }
