@@ -17,7 +17,7 @@ namespace DBMegreat.MigrationTools.Test
                     Type = SqlType.MySql,
                     ConnectionString = "Server=HOST_NAME;Database=DB_NAME;Uid=USER_ID;Pwd=PASSWORD"
                 },
-                LogOutput = "../directory/output"
+                LogOutputDirectory = "../directory/output"
             };
 
             var json = @"
@@ -30,7 +30,7 @@ namespace DBMegreat.MigrationTools.Test
                         ""type"": ""mysql"",
                         ""connection_string"": ""Server=HOST_NAME;Database=DB_NAME;Uid=USER_ID;Pwd=PASSWORD""
                     },
-                    ""log_output"": ""../directory/output""
+                    ""log_output_directory"": ""../directory/output""
                 }
             ";
             var configuration = MigrationConfiguration.ParseConfiguration(json);
@@ -44,7 +44,7 @@ namespace DBMegreat.MigrationTools.Test
             configuration.DbConnection.Type.ShouldBe(expected.DbConnection.Type);
             configuration.DbConnection.ConnectionString.ShouldBe(expected.DbConnection.ConnectionString);
 
-            configuration.LogOutput.ShouldBe(expected.LogOutput);
+            configuration.LogOutputDirectory.ShouldBe(expected.LogOutputDirectory);
         }
 
         [Fact]
@@ -83,7 +83,7 @@ namespace DBMegreat.MigrationTools.Test
             configuration.DbConnection.Type.ShouldBe(expected.DbConnection.Type);
             configuration.DbConnection.ConnectionString.ShouldBe(expected.DbConnection.ConnectionString);
 
-            configuration.LogOutput.ShouldBe(expected.LogOutput);
+            configuration.LogOutputDirectory.ShouldBe(expected.LogOutputDirectory);
         }
 
         [Fact]

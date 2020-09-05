@@ -13,8 +13,8 @@ namespace DBMegreat.MigrationTools
         [JsonPropertyName("db_connection")]
         public ConnectionConfiguration DbConnection { get; set; }
 
-        [JsonPropertyName("log_output")]
-        public string LogOutput { get; set; }
+        [JsonPropertyName("log_output_directory")]
+        public string LogOutputDirectory { get; set; }
 
         public static MigrationConfiguration ParseConfiguration(string jsonContent)
         {
