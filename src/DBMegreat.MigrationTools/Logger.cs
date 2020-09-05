@@ -69,17 +69,23 @@ namespace DBMegreat.MigrationTools
     public class FileLogger : BaseLogger, ILogger
     {
         private string _filePath;
+        private string _directoryPath;
         private ILogger _decorated;
 
-        public FileLogger(string filePath)
+        public FileLogger(string directoryPath, string fileName)
         {
-            _filePath = filePath;
-            _decorated = new EmptyLogger();
+            InitLogger(directoryPath, fileName, new EmptyLogger());
         }
 
-        public FileLogger(string filePath, ILogger decorated)
+        public FileLogger(string directoryPath, string fileName, ILogger decorated)
         {
-            _filePath = filePath;
+            InitLogger(directoryPath, fileName, decorated);
+        }
+
+        private void InitLogger(string directoryPath, string fileName, ILogger decorated)
+        {
+            _directoryPath = directoryPath;
+            _filePath = directoryPath.EndsWith("/") ? directoryPath + fileName : $"{directoryPath}/{fileName}";
             _decorated = decorated;
         }
 
@@ -104,9 +110,8 @@ namespace DBMegreat.MigrationTools
 
         private void OpenFileAndWrite(string filePath, string message)
         {
-            var file = new StreamWriter(File.OpenWrite(filePath));
-            file.WriteLine(message);
-            file.Close();
+            Directory.CreateDirectory(_directoryPath); // this will only create new directory if the directory doesn't exist
+            File.AppendAllLines(filePath, new string[] { message });
         }
     }
 }
