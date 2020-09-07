@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DBMegreat.MigrationTools.Repositories;
+using DBMegreat.MigrationTools.Test.Utils;
 using Moq;
 using Shouldly;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace DBMegreat.MigrationTools.Test
 {
@@ -12,6 +14,7 @@ namespace DBMegreat.MigrationTools.Test
     {
         private readonly Mock<IIOHelper> _ioHelper;
         private readonly Mock<ITrackerRepositoryFactory> _trackerRepositoryFactory;
+        private readonly Mock<ITrackerRepository> _trackerRepository;
         private readonly Mock<ILogger> _logger;
         private readonly DBMigrationTools _migrationTools;
 
@@ -32,16 +35,29 @@ namespace DBMegreat.MigrationTools.Test
             ";
 
         private readonly IOException ioException = new IOException("An IO exception");
+        private readonly Dictionary<string, SchemaHistoryRecord> schemaHistory = new Dictionary<string, SchemaHistoryRecord>
+        {
+                { "1.sql", new SchemaHistoryRecord("1.sql", DateTime.Now) },
+                { "2.sql", new SchemaHistoryRecord("2.sql", DateTime.Now) },
+                { "3.sql", new SchemaHistoryRecord("3.sql", DateTime.Now) }
+        };
 
-        public DBMigrationToolsTest()
+
+        public DBMigrationToolsTest(ITestOutputHelper output)
         {
             _ioHelper = new Mock<IIOHelper>();
             _ioHelper.Setup(x => x.LoadFileContent(configFilePath)).Returns(validConfigContent);
 
+            _trackerRepository = new Mock<ITrackerRepository>();
+            _trackerRepository.Setup(x => x.CheckTrackTableExistAsync()).ReturnsAsync(true);
+            _trackerRepository.Setup(x => x.GetSchemaHistoryRecordsAsync()).ReturnsAsync(schemaHistory);
             _trackerRepositoryFactory = new Mock<ITrackerRepositoryFactory>();
+            _trackerRepositoryFactory.Setup(x => x.GetTrackerRepository(It.IsAny<ConnectionConfiguration>()))
+                .Returns(_trackerRepository.Object);
+
             _logger = new Mock<ILogger>();
 
-            _migrationTools = new DBMigrationTools(_ioHelper.Object, _trackerRepositoryFactory.Object, _logger.Object);
+            _migrationTools = new DBMigrationTools(_ioHelper.Object, _trackerRepositoryFactory.Object, new TestLogger(output, _logger.Object));
         }
 
         [Fact]
@@ -66,6 +82,16 @@ namespace DBMegreat.MigrationTools.Test
 
         [Fact]
         public async Task ExecuteAsync_TrackerRepositoryThrowAnException_ShouldLogTrackerRepositoryException()
+        {
+            _trackerRepositoryFactory.Setup(x => x.GetTrackerRepository(It.IsAny<ConnectionConfiguration>())).Throws(new TrackerRepositoryException("error"));
+            await _migrationTools.ExecuteAsync(configFilePath);
+            _logger.Verify(x =>
+                x.Error(It.Is<string>(s => s == errorLogMessage),
+                        It.Is<Exception>(ex => ex.GetType() == typeof(TrackerRepositoryException))));
+        }
+
+        [Fact]
+        public async Task ExecuteAsync_TrackTableDoesNotExist_ShouldCallCreateTrackTableAsync()
         {
             _trackerRepositoryFactory.Setup(x => x.GetTrackerRepository(It.IsAny<ConnectionConfiguration>())).Throws(new TrackerRepositoryException("error"));
             await _migrationTools.ExecuteAsync(configFilePath);
