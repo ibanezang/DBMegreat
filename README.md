@@ -33,7 +33,7 @@ DB Megreat will use `db_connection` to connect to the database and scan all dire
 
 ## Supported Database Connection Type
 | Type | Description |
-|------|-------------|
+|---|---|
 |mysql| MySQL database|
 |sqlserver| MS SQL Server database|
 
