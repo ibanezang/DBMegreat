@@ -32,6 +32,7 @@ DB Megreat will use `db_connection` to connect to the database and scan all dire
 * Make sure the database user being used has a privileges to do manipulate your database. Otherwise, you might encounter some errors when executing your scripts.
 
 ## Supported Database Connection Type
+
 | Type | Description |
 |--|--|
 |mysql| MySQL database|
