@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using DBMegreat.MigrationTools.Repositories;
 using DBMegreat.MigrationTools.Test.Utils;
 using Moq;
-using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -23,8 +22,8 @@ namespace DBMegreat.MigrationTools.Test
         private const string validConfigContent = @"
                 {
                     ""sql_files_directories"": [
-                        ""/your/directory/contains/sql"",
-                        ""../another/directory/contains/sql""
+                        ""/directory1/"",
+                        ""../directory2/""
                     ],
                     ""db_connection"": {
                         ""type"": ""mysql"",
@@ -37,9 +36,10 @@ namespace DBMegreat.MigrationTools.Test
         private readonly IOException ioException = new IOException("An IO exception");
         private readonly Dictionary<string, SchemaHistoryRecord> schemaHistory = new Dictionary<string, SchemaHistoryRecord>
         {
-                { "1.sql", new SchemaHistoryRecord("1.sql", DateTime.Now) },
-                { "2.sql", new SchemaHistoryRecord("2.sql", DateTime.Now) },
-                { "3.sql", new SchemaHistoryRecord("3.sql", DateTime.Now) }
+                { "/directory1/1.sql", new SchemaHistoryRecord("/directory1/1.sql", DateTime.Now) },
+                { "/directory1/2.sql", new SchemaHistoryRecord("/directory1/2.sql", DateTime.Now) },
+                { "/directory1/3.sql", new SchemaHistoryRecord("/directory1/3.sql", DateTime.Now) }
+                { "../directory2/1.sql", new SchemaHistoryRecord("../directory2/1.sql", DateTime.Now) }
         };
 
 
@@ -47,10 +47,11 @@ namespace DBMegreat.MigrationTools.Test
         {
             _ioHelper = new Mock<IIOHelper>();
             _ioHelper.Setup(x => x.LoadFileContent(configFilePath)).Returns(validConfigContent);
-
+            _ioHelper.
             _trackerRepository = new Mock<ITrackerRepository>();
             _trackerRepository.Setup(x => x.CheckTrackTableExistAsync()).ReturnsAsync(true);
             _trackerRepository.Setup(x => x.GetSchemaHistoryRecordsAsync()).ReturnsAsync(schemaHistory);
+
             _trackerRepositoryFactory = new Mock<ITrackerRepositoryFactory>();
             _trackerRepositoryFactory.Setup(x => x.GetTrackerRepository(It.IsAny<ConnectionConfiguration>()))
                 .Returns(_trackerRepository.Object);
