@@ -7,8 +7,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v1
         with:
             dotnet-version: '3.1.x' 
       - run: dotnet build src/DBMegreat.ConsoleApp/
+  unit-test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+        uses: actions/checkout@v2
+        - uses: actions/setup-dotnet@v1
+          with:
+              dotnet-version: '3.1.x' 
+        - run: dotnet test test/DBMegreat.MigrationTools.Test/
