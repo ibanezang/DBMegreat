@@ -93,11 +93,10 @@ namespace DBMegreat.MigrationTools.Test
         [Fact]
         public async Task ExecuteAsync_TrackTableDoesNotExist_ShouldCallCreateTrackTableAsync()
         {
-            _trackerRepositoryFactory.Setup(x => x.GetTrackerRepository(It.IsAny<ConnectionConfiguration>())).Throws(new TrackerRepositoryException("error"));
+            _trackerRepository.Setup(x => x.CheckTrackTableExistAsync()).ReturnsAsync(false);
             await _migrationTools.ExecuteAsync(configFilePath);
-            _logger.Verify(x =>
-                x.Error(It.Is<string>(s => s == errorLogMessage),
-                        It.Is<Exception>(ex => ex.GetType() == typeof(TrackerRepositoryException))));
+
+            _trackerRepository.Verify(x => x.CreateTrackTableAsync(), Times.Once);
         }
     }
 }
