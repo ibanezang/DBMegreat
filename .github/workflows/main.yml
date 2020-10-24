@@ -12,10 +12,10 @@ jobs:
             dotnet-version: '3.1.x' 
       - run: dotnet build src/DBMegreat.ConsoleApp/
   unit-test:
+    needs: build
     name: Run Unit Tests
     runs-on: ubuntu-latest
     steps:
-        - needs: build
         - uses: actions/checkout@v2
         - uses: actions/setup-dotnet@v1
           with:
