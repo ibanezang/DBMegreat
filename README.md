@@ -14,7 +14,7 @@ You just need to create a configuration file with any name we like. For example 
         "type": "mysql",
         "connection_string": "Server=HOST_NAME;Database=DB_NAME;Uid=USER_ID;Pwd=PASSWORD"
     },
-    "log_output": "../directory/output"
+    "log_output_directory": "../directory/output"
 }
 ```
 

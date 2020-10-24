@@ -29,9 +29,9 @@ namespace DBMegreat.MigrationTools
                 var configuration = MigrationConfiguration.ParseConfiguration(configContent);
                 logger.Info($"Configuration file {configFilePath} loaded successfully.");
 
-                if (!string.IsNullOrWhiteSpace(configuration.LogOutput))
+                if (!string.IsNullOrWhiteSpace(configuration.LogOutputDirectory))
                 {
-                    logger = new FileLogger(configuration.LogOutput, "output.log", _logger);
+                    logger = new FileLogger(configuration.LogOutputDirectory, "output.log", _logger);
                 }
 
                 var trackerRepository = _trackerRepositoryFactory.GetTrackerRepository(configuration.DbConnection);
