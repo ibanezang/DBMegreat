@@ -38,7 +38,7 @@ namespace DBMegreat.MigrationTools.Test
         {
                 { "/directory1/1.sql", new SchemaHistoryRecord("/directory1/1.sql", DateTime.Now) },
                 { "/directory1/2.sql", new SchemaHistoryRecord("/directory1/2.sql", DateTime.Now) },
-                { "/directory1/3.sql", new SchemaHistoryRecord("/directory1/3.sql", DateTime.Now) }
+                { "/directory1/3.sql", new SchemaHistoryRecord("/directory1/3.sql", DateTime.Now) },
                 { "../directory2/1.sql", new SchemaHistoryRecord("../directory2/1.sql", DateTime.Now) }
         };
 
@@ -47,7 +47,6 @@ namespace DBMegreat.MigrationTools.Test
         {
             _ioHelper = new Mock<IIOHelper>();
             _ioHelper.Setup(x => x.LoadFileContent(configFilePath)).Returns(validConfigContent);
-            _ioHelper.
             _trackerRepository = new Mock<ITrackerRepository>();
             _trackerRepository.Setup(x => x.CheckTrackTableExistAsync()).ReturnsAsync(true);
             _trackerRepository.Setup(x => x.GetSchemaHistoryRecordsAsync()).ReturnsAsync(schemaHistory);
