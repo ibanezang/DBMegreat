@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  dbmegreat.migrationtools.integration.test:
-    image: ${DOCKER_REGISTRY-}dbmegreatmigrationtoolsintegration
-    build:
-      context: .
-      dockerfile: test/DBMegreat.MigrationTools.Integration.Test/Dockerfile
