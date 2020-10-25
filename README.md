@@ -2,7 +2,7 @@
 DB Megreat designed to be a very simplistic database migration tools with a simple json configuration file. DB megreat is created as a CLI command so you can integrate DB Megreat to your build pipeline to make sure your that database always up-to-date.
 
 ## How to use?
-You just need to create a configuration file with any name we like. For example create a file `db-megreat.json` with this content:
+You just need to create a configuration file with any name you like. For example create a file `db-megreat.json` with this content:
 
 ```
 {
@@ -29,7 +29,7 @@ DB Megreat will use `db_connection` to connect to the database and scan all dire
 * Mandatory configuration fields are: `sql_files_directories`, `db_connection`, `db_connection.type`, `db_connection.connection_string`. 
 * If `log_output` provided, DB Megreat will write logs to a file. Otherwise, it will only print the output in the CLI.
 * DB Megreat executes the sql scripts based on the file naming order. The best practice for a consistent ordering, you can give a number for your file for example `00001_your_file_name.sql`, `00002_another_file_name.sql`, etc.
-* Make sure the database user being used has a privileges to do manipulate your database. Otherwise, you might encounter some errors when executing your scripts.
+* Make sure the database user being used has the privileges to manipulate your database. Otherwise, you might encounter some errors when executing your scripts.
 
 ## Supported Database Connection Type
 
