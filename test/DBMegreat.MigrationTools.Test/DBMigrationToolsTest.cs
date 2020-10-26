@@ -38,8 +38,14 @@ namespace DBMegreat.MigrationTools.Test
         {
                 { "/directory1/1.sql", new SchemaHistoryRecord("/directory1/1.sql", DateTime.Now) },
                 { "/directory1/2.sql", new SchemaHistoryRecord("/directory1/2.sql", DateTime.Now) },
-                { "/directory1/3.sql", new SchemaHistoryRecord("/directory1/3.sql", DateTime.Now) },
                 { "../directory2/1.sql", new SchemaHistoryRecord("../directory2/1.sql", DateTime.Now) }
+        };
+
+        private readonly IEnumerable<string> filesInDirectory = new List<string>
+        {
+            "/directory1/1.sql",
+            "/directory1/2.sql",
+            "/directory1/3.sql"
         };
 
 
@@ -47,6 +53,9 @@ namespace DBMegreat.MigrationTools.Test
         {
             _ioHelper = new Mock<IIOHelper>();
             _ioHelper.Setup(x => x.LoadFileContent(configFilePath)).Returns(validConfigContent);
+            _ioHelper.Setup(x => x.GetFilesFromDirectory("/directory1/")).Returns(filesInDirectory);
+            _ioHelper.Setup(x => x.LoadFileContent("/directory1/3.sql")).Returns("content of 3.sql");
+
             _trackerRepository = new Mock<ITrackerRepository>();
             _trackerRepository.Setup(x => x.CheckTrackTableExistAsync()).ReturnsAsync(true);
             _trackerRepository.Setup(x => x.GetSchemaHistoryRecordsAsync()).ReturnsAsync(schemaHistory);
@@ -96,7 +105,17 @@ namespace DBMegreat.MigrationTools.Test
             _trackerRepository.Setup(x => x.CheckTrackTableExistAsync()).ReturnsAsync(false);
             await _migrationTools.ExecuteAsync(configFilePath);
 
-            _trackerRepository.Verify(x => x.CreateTrackTableAsync(), Times.AtLeast(2));
+            _trackerRepository.Verify(x => x.CreateTrackTableAsync(), Times.Once);
+        }
+
+        [Fact]
+        public async Task ExecuteAsync_CompleteFlowWithNewFileInDirectory_ShouldCallInsertTrackingAsync()
+        {
+            await _migrationTools.ExecuteAsync(configFilePath);
+
+            _ioHelper.Verify(x => x.LoadFileContent("/directory1/3.sql"), Times.Once);
+            _trackerRepository.Verify(x => x.ExecuteNonQueryAsync("content of 3.sql", null), Times.Once);
+            _trackerRepository.Verify(x => x.InsertTrackingAsync("/directory1/3.sql"), Times.Once);
         }
     }
 }
