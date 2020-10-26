@@ -96,7 +96,7 @@ namespace DBMegreat.MigrationTools.Test
             _trackerRepository.Setup(x => x.CheckTrackTableExistAsync()).ReturnsAsync(false);
             await _migrationTools.ExecuteAsync(configFilePath);
 
-            _trackerRepository.Verify(x => x.CreateTrackTableAsync(), Times.Once);
+            _trackerRepository.Verify(x => x.CreateTrackTableAsync(), Times.AtLeast(2));
         }
     }
 }
