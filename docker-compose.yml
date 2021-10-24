@@ -2,6 +2,7 @@ version: "3.9"
 services:
   megreat:
     build: .
+    entrypoint: "dotnet /app/DBMegreat.ConsoleApp.dll /SQL/config.json"
     volumes:
       - ./test/sql-scripts:/SQL
       - ./test/output:/output
