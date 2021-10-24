@@ -6,7 +6,7 @@ services:
       - ./test/sql-scripts:/SQL
       - ./test/output:/output
     depends_on:
-      mysql_db
+      - mysql_db
   mysql_db:
     image: mysql
     environment: 
@@ -15,4 +15,4 @@ services:
       MYSQL_USER: test_megreat_user
       MYSQL_PASSWORD: megreat_password
     ports: 
-     - 20001:3306
+     - 9000:3306
