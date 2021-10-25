@@ -1,10 +1,10 @@
 {
     "sql_files_directories": [
-        "./sqlfolder"
+        "/SQL"
     ],
     "db_connection": {
         "type": "mysql",
-        "connection_string": "Server=localhost;Database=db-megreat-test;Uid=test_megreat_user;Pwd=megreat_password"
+        "connection_string": "Server=mysql_db;Database=db-megreat-test;Uid=test_megreat_user;Pwd=megreat_password"
     },
     "log_output": "/output"
 }
