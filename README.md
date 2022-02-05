@@ -1,3 +1,5 @@
+This is a new explanation.
+
 # DB Megreat
 DB Megreat designed to be a very simplistic database migration tools with a simple json configuration file. DB megreat is created as a CLI command so you can integrate DB Megreat to your build pipeline to make sure your that database always up-to-date.
 
