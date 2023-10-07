@@ -1,5 +1,5 @@
 # DB Megreat
-DB Megreat designed to be a very simplistic database migration tools with a simple json configuration file. DB megreat is created as a CLI command so you can integrate DB Megreat to your build pipeline to make sure your that database always up-to-date.
+DB Megreat is designed as a straightforward database migration tool, featuring a simple JSON configuration file. Its core philosophy centers on treating databases as code, enabling you to recreate your database from scratch and initialize data. DB Megreat is implemented as a Command-Line Interface (CLI) tool, enabling seamless integration into your Continuous Integration (CI) pipeline, thereby ensuring that your database schema remains up-to-date at all times.
 
 ## How to use?
 You just need to create a configuration file with any name you like. For example create a file `db-megreat.json` with this content:
