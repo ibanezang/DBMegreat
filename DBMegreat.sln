@@ -5,13 +5,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{93193CD6-8CC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B53A1936-1F70-488A-A00B-EF88F1A9F50D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMegreat.MigrationTools", "src\DBMegreat.MigrationTools\DBMegreat.MigrationTools.csproj", "{D4DEA9EB-E86B-46AC-B0A9-ED9E0D05928D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBMegreat.MigrationTools", "src\DBMegreat.MigrationTools\DBMegreat.MigrationTools.csproj", "{D4DEA9EB-E86B-46AC-B0A9-ED9E0D05928D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMegreat.MigrationTools.Test", "test\DBMegreat.MigrationTools.Test\DBMegreat.MigrationTools.Test.csproj", "{9586E763-8771-426C-886A-F83F10E90437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBMegreat.MigrationTools.Test", "test\DBMegreat.MigrationTools.Test\DBMegreat.MigrationTools.Test.csproj", "{9586E763-8771-426C-886A-F83F10E90437}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMegreat.MigrationTools.Integration.Test", "test\DBMegreat.MigrationTools.Integration.Test\DBMegreat.MigrationTools.Integration.Test.csproj", "{658D6E42-3CDB-4137-B783-8C248F277413}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBMegreat.MigrationTools.Integration.Test", "test\DBMegreat.MigrationTools.Integration.Test\DBMegreat.MigrationTools.Integration.Test.csproj", "{658D6E42-3CDB-4137-B783-8C248F277413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMegreat.ConsoleApp", "src\DBMegreat.ConsoleApp\DBMegreat.ConsoleApp.csproj", "{01ABED64-E56F-4E96-B2EB-23FEAC2181A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBMegreat.ConsoleApp", "src\DBMegreat.ConsoleApp\DBMegreat.ConsoleApp.csproj", "{01ABED64-E56F-4E96-B2EB-23FEAC2181A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
