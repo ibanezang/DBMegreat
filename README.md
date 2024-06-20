@@ -1,3 +1,5 @@
+This is a new explanation.
+
 # DB Megreat
 DB Megreat is designed as a straightforward database migration tool, featuring a simple JSON configuration file. Its core philosophy centers on treating databases as code, enabling you to recreate your database from scratch and initialize data. DB Megreat is implemented as a Command-Line Interface (CLI) tool, enabling seamless integration into your Continuous Integration (CI) pipeline, thereby ensuring that your database schema remains up-to-date at all times.
 
